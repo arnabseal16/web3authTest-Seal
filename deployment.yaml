@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-hpa-dep
+  labels:
+    type: restapi
+spec:
+  selector: 
+    matchLabels:
+      app: test-hpa-dep
+  replicas: 1
+  template:
+    metadata:
+      name: test-hpa-dep-tmpl
+      labels:
+        app: test-hpa-dep
+    spec:
+      containers:
+        - name: test-hpa-dep
+          image: arnabseal16/web3auth:latest
+          ports:
+            - containerPort: 8000
+          resources:
+            requests:
+              cpu: "10m"
+              memory: "10Mi"
